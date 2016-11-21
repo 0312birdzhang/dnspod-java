@@ -22,6 +22,7 @@ import com.belerweb.dnspod.result.ModifyRecordResult;
 import com.belerweb.dnspod.result.Result;
 import com.belerweb.dnspod.result.UserDetailResult;
 import com.belerweb.dnspod.result.VersionResult;
+import com.belerweb.dnspod.result.GetResultListResult.Domain;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
@@ -41,6 +42,7 @@ public final class DNSPodAPI {
   private static final String API_RECORD_MODIFY = "Record.Modify";
   private static final String API_RECORD_LIST = "Record.List";
 
+  private static final String API_DOMAIN_LIST = "Domain.List";
   public static final String CONFIG_KEY_LOGIN_EMAIL = "DNSPod.api.login_email";
   public static final String CONFIG_KEY_LOGIN_PASSWORD = "DNSPod.api.login_password";
   public static final String CONFIG_KEY_FORMAT = "DNSPod.api.format";
@@ -157,6 +159,18 @@ public final class DNSPodAPI {
   // TODO User.Log
   // TODO Domain.Create
   // TODO Domain.List
+
+  public Result getDomainList(String type, String offset, String length, String group_id,
+      String keyword) {
+    List<NameValuePair> param = createCommonParam();
+    param.add(new BasicNameValuePair("type", type));
+    param.add(new BasicNameValuePair("offset", offset));
+    param.add(new BasicNameValuePair("length", length));
+    param.add(new BasicNameValuePair("group_id", group_id));
+    param.add(new BasicNameValuePair("keyword", keyword));
+    return execute(API_DOMAIN_LIST, param, Result.class);
+  }
+
   // TODO Domain.Remove
   // TODO Domain.Status
   // TODO Domain.Info    return execute(API_VERSION, createCommonParam(), VersionResult.class);
